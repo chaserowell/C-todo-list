@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple To-Do List</title>
+<style>
+  body {
+    font-family: 'Times New Roman', serif;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: white;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+  }
+  .todo-list {
+    list-style: none;
+    padding: 0;
+  }
+  .todo-list li {
+    background: none;
+    border: none;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+  }
+  .todo-list li.checked {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  .todo-list li input[type="text"] {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    margin-left: 10px;
+  }
+  .todo-list li input[type="text"]:focus {
+    outline: none;
+  }
+  .add-task {
+    cursor: pointer;
+    font-size: 24px;
+  }
+  .checkmark {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .checked .checkmark {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M20.292 6.708a1 1 0 0 0-1.415-1.415l-11.17 11.17-2.963-2.963a1 1 0 0 0-1.414 1.414l3.677 3.677a1 1 0 0 0 1.414 0l12.285-12.285Z"/></svg>') no-repeat center;
+    background-size: 16px;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <h1 contenteditable="true">Title</h1>
+  <ul class="todo-list">
+    <li>
+      <div class="checkmark"></div>
+      <input type="text" value="Task 1">
+    </li>
+    <li>
+      <div class="checkmark"></div>
+      <input type="text" value="Task 2">
+    </li>
+    <li>
+      <div class="checkmark"></div>
+      <input type="text" value="Task 3">
+    </li>
+  </ul>
+  <div class="add-task">+</div>
+</div>
+
+<script>
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('checkmark')) {
+      event.target.parentNode.classList.toggle('checked');
+    } else if (event.target.classList.contains('add-task')) {
+      var newItem = document.createElement('li');
+      newItem.innerHTML = '<div class="checkmark"></div><input type="text" value="New Task">';
+      document.querySelector('.todo-list').appendChild(newItem);
+    }
+  });
+
+  document.addEventListener('keypress', function(event) {
+    if (event.target.tagName === 'INPUT' && event.keyCode === 13) {
+      event.preventDefault();
+      event.target.blur();
+    }
+  });
+</script>
+</body>
+</html>
